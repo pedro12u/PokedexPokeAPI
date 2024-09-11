@@ -1,0 +1,42 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pokédex</title>
+    <link rel="stylesheet" href="/css/styles.css" />
+  </head>
+  <body>
+    <div class="container">
+      <h1>Pokédex</h1>
+      <div class="pokedex">
+        {{#each pokemonList}}
+          <div class="pokemon-card">
+            <a href="/pokemon/{{this.name}}">
+              <img
+                src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/{{getPokemonId
+                  this.url
+                }}.png"
+                alt="{{this.name}}"
+              />
+              <h2>{{this.name}}</h2>
+            </a>
+          </div>
+        {{/each}}
+      </div>
+
+      <div class="pagination">
+        {{#if (gt currentPage 1)}}
+          <a href="/pokemon?page={{subtract currentPage 1}}">Anterior</a>
+        {{else}}
+          <span class="disabled">Anterior</span>
+        {{/if}}
+
+        {{#if (lt currentPage maxPages)}}
+          <a href="/pokemon?page={{add currentPage 1}}">Próximo</a>
+        {{else}}
+          <span class="disabled">Próximo</span>
+        {{/if}}
+      </div>
+    </div>
+  </body>
+</html>

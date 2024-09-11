@@ -1,0 +1,58 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{{pokemon.name}} - Detalhes do Pokémon</title>
+    <link rel="stylesheet" href="/css/styles.css" />
+  </head>
+  <body>
+    <div class="pokemon-details-container">
+      <div class="pokemon-details-header">
+        <h1>{{pokemon.name}}</h1>
+        <img src="{{officialArtwork}}" alt="{{pokemon.name}}" />
+      </div>
+
+      <div class="pokemon-info">
+        <div class="info-card">
+          <h2>Tipo</h2>
+          <ul>
+            {{#each pokemon.types}}
+              <li>{{this.type.name}}</li>
+            {{/each}}
+          </ul>
+        </div>
+
+        <div class="info-card">
+          <h2>Altura</h2>
+          <p>{{pokemon.height}} decímetros</p>
+        </div>
+
+        <div class="info-card">
+          <h2>Peso</h2>
+          <p>{{pokemon.weight}} hectogramas</p>
+        </div>
+
+        <div class="info-card">
+          <h2>Habilidades</h2>
+          <ul>
+            {{#each pokemon.abilities}}
+              <li>{{this.ability.name}}</li>
+            {{/each}}
+          </ul>
+        </div>
+
+        <div class="info-card">
+          <h2>Estatísticas</h2>
+          <ul>
+            {{#each pokemon.stats}}
+              <li>{{this.stat.name}}: {{this.base_stat}}</li>
+            {{/each}}
+          </ul>
+        </div>
+      </div>
+      <div class="button-container">
+        <a href="/pokemon" class="back-button">Voltar à Pokédex</a>
+      </div>
+    </div>
+  </body>
+</html>

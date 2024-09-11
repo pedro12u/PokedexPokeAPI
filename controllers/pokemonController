@@ -1,0 +1,46 @@
+const axios = require("axios");
+
+exports.getAllPokemon = async (req, res, next) => {
+  const { page = 1 } = req.query;
+  const limit = 20;
+  const offset = (page - 1) * limit;
+
+  try {
+    const response = await axios.get(
+      `https://pokeapi.co/api/v2/pokemon?limit=${limit}&offset=${offset}`
+    );
+    const pokemonList = response.data.results;
+    const totalPokemon = 1118;
+    const maxPages = Math.ceil(totalPokemon / limit);
+
+    res.render("pokedex", {
+      pokemonList,
+      currentPage: parseInt(page),
+      maxPages,
+      offset,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+exports.getPokemonByName = async (req, res, next) => {
+  const { name } = req.params;
+  try {
+    const response = await axios.get(
+      `https://pokeapi.co/api/v2/pokemon/${name}`
+    );
+    const pokemon = response.data;
+
+    const officialArtwork =
+      pokemon.sprites.other["official-artwork"].front_default;
+
+    res.render("pokemon", { pokemon, officialArtwork });
+  } catch (error) {
+    if (error.response && error.response.status === 404) {
+      res.status(404).render("error", { message: "Pokémon não encontrado!" });
+    } else {
+      next(error);
+    }
+  }
+};
